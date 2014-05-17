@@ -23,7 +23,7 @@
 #include <QtWidgets/QDockWidget>
 #include <QtGui/QFileDialog>
 #include <QtGui/QAction>
-#include <QtCore/QAbstractItemModel>
+#include <QtGui/QStandardItemModel>
 #include "src/gitcore.h"
 
 namespace Ui {
@@ -53,7 +53,7 @@ private:
       gitCore *_core;
       QAction *_actionMenu;
       
-      QAbstractItemModel *_tablemodel;
+      QStandardItemModel *_tablemodel;
 
 };
 

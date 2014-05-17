@@ -30,8 +30,8 @@ QDockWidget(parent), ui(new Ui::DockWidget), _core(core)
   _actionMenu->setCheckable( true );
   _actionMenu->setChecked( true );
   
-  _tablemodel = new QAbstractItemModel();
-  _tablemodel->insertColumn(0, new QModelIndex())
+  _tablemodel = new QStandardItemModel(0,1, this);
+  _tablemodel->setHorizontalHeaderItem(0, new QStandardItem(QString("Repository path")));
   ui->tableView->setModel(_tablemodel);
   
   connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
@@ -57,7 +57,8 @@ void dockProjects::actionMenu_toggled(bool checked)
 
 void dockProjects::newRepo(QString repo)
 {
-  _tablemodel->insertRow(0, new QModelIndex() );
+  QStandardItem *firstRow = new QStandardItem(QString(repo));
+  _tablemodel->setItem(0,0,firstRow);
 }
 
 void dockProjects::on_toolBtn_AddDirectory_clicked()
