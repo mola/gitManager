@@ -17,38 +17,38 @@
  *
  */
 
-#ifndef GITCORE_H
-#define GITCORE_H
+#include "globalsettings.h"
+#include <QDebug>
 
-#include <git2.h>
-#include <git2/merge.h>
-#include <git2/remote.h>
+globalsettings* globalsettings::modelInstance = 0;
 
-#include <QtCore/qobject.h>
-#include <QtCore/QList>
-#include <QtCore/QDir>
-#include <QtCore/QProcess>
-
-#include "qrepo.h"
-
-class gitCore : public QObject
+globalsettings::globalsettings(QWidget *parent): QSettings("gitManager", "gitManager", parent )
 {
-    Q_OBJECT
-public:
-    gitCore(QObject* parent = 0);
-    virtual ~gitCore();
-    
-    void addDirectory(QString dir);
-    void removeDirectory(QString dir);
-    
-    bool is_git_dir(QString path);
-    void updateAllRepo();
+}
 
-signals:
-  void newRepository(QString repo);
-  
-private:
-    QList<QRepo *> _repoList;  
-};
+globalsettings* globalsettings::instance()
+{
+    if(modelInstance == 0)
+        qDebug() << "Class has not been created" << endl;
 
-#endif // GITCORE_H
+    return modelInstance;
+}
+
+bool globalsettings::create(QWidget *parent)
+{
+    if (modelInstance == NULL)
+        modelInstance = new globalsettings(parent);
+
+    return true;
+}
+
+bool globalsettings::exists()
+{
+  return (modelInstance != NULL);
+}
+
+globalsettings::~globalsettings()
+{
+}
+
+#include "globalsettings.moc"

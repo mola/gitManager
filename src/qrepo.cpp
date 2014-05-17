@@ -17,38 +17,37 @@
  *
  */
 
-#ifndef GITCORE_H
-#define GITCORE_H
-
-#include <git2.h>
-#include <git2/merge.h>
-#include <git2/remote.h>
-
-#include <QtCore/qobject.h>
-#include <QtCore/QList>
-#include <QtCore/QDir>
-#include <QtCore/QProcess>
-
 #include "qrepo.h"
 
-class gitCore : public QObject
+QRepo::QRepo(git_repository *e, QString path): QObject()
 {
-    Q_OBJECT
-public:
-    gitCore(QObject* parent = 0);
-    virtual ~gitCore();
-    
-    void addDirectory(QString dir);
-    void removeDirectory(QString dir);
-    
-    bool is_git_dir(QString path);
-    void updateAllRepo();
+  _dirPath = path;
+  _gitrepo = e;
+}
 
-signals:
-  void newRepository(QString repo);
-  
-private:
-    QList<QRepo *> _repoList;  
-};
+QRepo::~QRepo()
+{
 
-#endif // GITCORE_H
+}
+
+void QRepo::setGitRepository(git_repository* e)
+{
+  _gitrepo = e;
+}
+
+git_repository* QRepo::getGitRepository()
+{
+  return _gitrepo;
+}
+
+void QRepo::setDirPath(QString path)
+{
+  _dirPath = path;
+}
+
+QString QRepo::getDirPath()
+{
+  return _dirPath;
+}
+
+#include "qrepo.moc"

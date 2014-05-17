@@ -29,8 +29,13 @@ QDockWidget(parent), ui(new Ui::DockWidget), _core(core)
   _actionMenu =  new QAction("Projects", parent);
   _actionMenu->setCheckable( true );
   _actionMenu->setChecked( true );
-  connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
   
+  _tablemodel = new QAbstractItemModel();
+  _tablemodel->insertColumn(0, new QModelIndex())
+  ui->tableView->setModel(_tablemodel);
+  
+  connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
+  connect(_core,SIGNAL(newRepository(QString )), SLOT(newRepo(QString)) ); 
 }
 
 dockProjects::~dockProjects()
@@ -48,6 +53,11 @@ void dockProjects::actionMenu_toggled(bool checked)
     show();
   else
     hide();
+}
+
+void dockProjects::newRepo(QString repo)
+{
+  _tablemodel->insertRow(0, new QModelIndex() );
 }
 
 void dockProjects::on_toolBtn_AddDirectory_clicked()

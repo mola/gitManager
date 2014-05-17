@@ -51,7 +51,8 @@ bool gitCore::is_git_dir(QString path)
   {
     case 0:
     {
-      _repoList.append(e);
+      _repoList.append( new QRepo (e, path) );
+      emit newRepository(path);
       return true;
     }
       break;
@@ -62,102 +63,119 @@ bool gitCore::is_git_dir(QString path)
 
 void gitCore::updateAllRepo()
 {
-  git_merge_result *out;
-  git_reference *our_ref, *their_ref;
-  git_merge_head *their_heads[1];
-  git_merge_opts opts;
-  git_remote *remote = NULL;
-  
-  bool automerge = true;
-  opts.merge_tree_opts.automerge_flags= GIT_MERGE_AUTOMERGE_NORMAL;
-  
-  int res = 0;
-  qDebug() << "Going to pull";
-  
-  for (int i = 0 ; i< _repoList.size() ; i++ )
+  QString program = "git";
+   QStringList arguments;
+  for ( int i =0 ; i< _repoList.size(); i++)
   {
-
-    git_strarray ref_list;
-    git_reference_list(&ref_list, _repoList[i]);
-
-    const char *refname;
-    git_reference *ref;
-    for (int j = 0; j < ref_list.count; ++j) 
-    {
-      refname = ref_list.strings[i];
-      qDebug() << "Refrence Name ::  " << QString::fromUtf8(refname);
-    }
-
-          qDebug() << "*********** TAG LIST ***********  ";
-
-        git_strarray tag_list;
-	git_tag_list(&tag_list,_repoList[i] );
-
-	for (int j = 0; j < tag_list.count; ++j) 
-    {
-      qDebug() << "TAG Name ::  " << QString::fromUtf8(*tag_list.strings);
-    }
-
-    git_strarray *remotelist;
-
-  res = git_remote_list(remotelist ,_repoList[i]);
-  qDebug() << "REMOTE LIST COUNT :: " << remotelist->count ;
-//   qDebug() << "REMOTE NAME TAMOM SHOD ";
-  if (res == 0 )
-  {
-    qDebug() << "List Remote gerefteh shod :: ";
-  for ( int j = 0; j < remotelist->count ; j++ )
-  {
-    qDebug() << "REMOTE NAME :: " << QString::fromUtf8( *remotelist[j].strings );
-  }
-  }
-  else
-    qDebug() << "list remote daryaft nashod";
+    arguments.clear();
+    arguments << "pull";
     
+    
+    
+    QProcess *myProcess = new QProcess(this);
+    myProcess->setWorkingDirectory(_repoList[i]->getDirPath());
+    myProcess->start(program, arguments);
+   
+    myProcess->waitForFinished();
+    qDebug() << "Git Pull Finished :: "  << _repoList[i]->getDirPath();
   }
-  
-  git_strarray *remotelist2;
-  
-  for (int i = 0 ; i< _repoList.size() ; i++ )
-  {
-
- 
-//     git_reference_lookup(&their_ref, _repoList[i], "refs/remotes/origin/master");
-//     git_merge_head_from_ref(&their_heads[0], _repoList[i], their_ref);
-//     res = git_merge(&out, _repoList[i], (const git_merge_head **)their_heads, 1, &opts );
-    res = git_remote_load(&remote, _repoList[i],"origin");
-    qDebug() << "RES :::::: " << res;
-      if ( res==0 )
-      {
-  
-	if (git_remote_create_inmemory(&remote, _repoList[i], NULL, "origin") < 0)
-	{
-	  qDebug() << "Nashod ke beshe";
-	} else {
-	  qDebug() << "shod ke beshe dar memory";
-	  if ( git_remote_connect(remote, GIT_DIRECTION_FETCH) < 0 )
-	  {
-	    qDebug() << "Not connected !";
-	  } else {
-	    qDebug() << "connected OK";
-	    if (git_remote_download(remote) < 0) 
-	    {
-	      qDebug() << "Download nashod !";
-	    } else {
-	      qDebug() << "Download kardim ... ";
-	        git_remote_disconnect(remote);
-	    }
-	  }
-		        git_remote_disconnect(remote);
-
-	}
-      } else {
-	qDebug() << "REMOTE LOAD BE MOSHKEL KHORD";
-      }
-
-
-    qDebug() << "Results :: " << res;
-  }
+    
+//   git_merge_result *out;
+//   git_reference *our_ref, *their_ref;
+//   git_merge_head *their_heads[1];
+//   git_merge_opts opts;
+//   git_remote *remote = NULL;
+//   
+//   bool automerge = true;
+//   opts.merge_tree_opts.automerge_flags= GIT_MERGE_AUTOMERGE_NORMAL;
+//   
+//   int res = 0;
+//   qDebug() << "Going to pull";
+//   
+//   for (int i = 0 ; i< _repoList.size() ; i++ )
+//   {
+// 
+//     git_strarray ref_list;
+//     git_reference_list(&ref_list, _repoList[i]);
+// 
+//     const char *refname;
+//     git_reference *ref;
+//     for (int j = 0; j < ref_list.count; ++j) 
+//     {
+//       refname = ref_list.strings[i];
+//       qDebug() << "Refrence Name ::  " << QString::fromUtf8(refname);
+//     }
+// 
+//           qDebug() << "*********** TAG LIST ***********  ";
+// 
+//         git_strarray tag_list;
+// 	git_tag_list(&tag_list,_repoList[i] );
+// 
+// 	for (int j = 0; j < tag_list.count; ++j) 
+//     {
+//       qDebug() << "TAG Name ::  " << QString::fromUtf8(*tag_list.strings);
+//     }
+// 
+//     git_strarray *remotelist;
+// 
+//   res = git_remote_list(remotelist ,_repoList[i]);
+//   qDebug() << "REMOTE LIST COUNT :: " << remotelist->count ;
+// //   qDebug() << "REMOTE NAME TAMOM SHOD ";
+//   if (res == 0 )
+//   {
+//     qDebug() << "List Remote gerefteh shod :: ";
+//   for ( int j = 0; j < remotelist->count ; j++ )
+//   {
+//     qDebug() << "REMOTE NAME :: " << QString::fromUtf8( *remotelist[j].strings );
+//   }
+//   }
+//   else
+//     qDebug() << "list remote daryaft nashod";
+//     
+//   }
+//   
+//   git_strarray *remotelist2;
+//   
+//   for (int i = 0 ; i< _repoList.size() ; i++ )
+//   {
+// 
+//  
+// //     git_reference_lookup(&their_ref, _repoList[i], "refs/remotes/origin/master");
+// //     git_merge_head_from_ref(&their_heads[0], _repoList[i], their_ref);
+// //     res = git_merge(&out, _repoList[i], (const git_merge_head **)their_heads, 1, &opts );
+//     res = git_remote_load(&remote, _repoList[i],"origin");
+//     qDebug() << "RES :::::: " << res;
+//       if ( res==0 )
+//       {
+//   
+// 	if (git_remote_create_inmemory(&remote, _repoList[i], NULL, "origin") < 0)
+// 	{
+// 	  qDebug() << "Nashod ke beshe";
+// 	} else {
+// 	  qDebug() << "shod ke beshe dar memory";
+// 	  if ( git_remote_connect(remote, GIT_DIRECTION_FETCH) < 0 )
+// 	  {
+// 	    qDebug() << "Not connected !";
+// 	  } else {
+// 	    qDebug() << "connected OK";
+// 	    if (git_remote_download(remote) < 0) 
+// 	    {
+// 	      qDebug() << "Download nashod !";
+// 	    } else {
+// 	      qDebug() << "Download kardim ... ";
+// 	        git_remote_disconnect(remote);
+// 	    }
+// 	  }
+// 		        git_remote_disconnect(remote);
+// 
+// 	}
+//       } else {
+// 	qDebug() << "REMOTE LOAD BE MOSHKEL KHORD";
+//       }
+// 
+// 
+//     qDebug() << "Results :: " << res;
+//   }
 }
 
 #include "gitcore.moc"

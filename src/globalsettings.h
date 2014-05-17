@@ -17,38 +17,26 @@
  *
  */
 
-#ifndef GITCORE_H
-#define GITCORE_H
+#ifndef GLOBALSETTINGS_H
+#define GLOBALSETTINGS_H
 
-#include <git2.h>
-#include <git2/merge.h>
-#include <git2/remote.h>
+#include <QtWidgets/QWidget>
+#include <QtCore/QSettings>
 
-#include <QtCore/qobject.h>
-#include <QtCore/QList>
-#include <QtCore/QDir>
-#include <QtCore/QProcess>
-
-#include "qrepo.h"
-
-class gitCore : public QObject
+class globalsettings : public QSettings
 {
     Q_OBJECT
-public:
-    gitCore(QObject* parent = 0);
-    virtual ~gitCore();
-    
-    void addDirectory(QString dir);
-    void removeDirectory(QString dir);
-    
-    bool is_git_dir(QString path);
-    void updateAllRepo();
 
-signals:
-  void newRepository(QString repo);
-  
-private:
-    QList<QRepo *> _repoList;  
+public:
+    static globalsettings* instance();
+    static bool create(QWidget *parent);
+    static bool exists();
+    
+protected:
+    globalsettings(QWidget *parent = 0);
+    ~globalsettings();
+    
+    static globalsettings* modelInstance;
 };
 
-#endif // GITCORE_H
+#endif // GLOBALSETTINGS_H

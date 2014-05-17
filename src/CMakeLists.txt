@@ -1,6 +1,6 @@
 project(gitManager)
 
-set(gitManager_SRCS gitcore.cpp 
+set(gitManager_SRCS qrepo.cpp gitcore.cpp 
     gitManager.cpp
     globalsettings.cpp
     main.cpp

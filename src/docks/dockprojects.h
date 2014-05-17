@@ -23,7 +23,7 @@
 #include <QtWidgets/QDockWidget>
 #include <QtGui/QFileDialog>
 #include <QtGui/QAction>
-
+#include <QtCore/QAbstractItemModel>
 #include "src/gitcore.h"
 
 namespace Ui {
@@ -45,10 +45,15 @@ private slots:
   
   void on_toolBtn_AddDirectory_clicked();
   void on_toolBtn_UpdateAll_clicked();
+
+  void newRepo(QString repo);
+
 private:
       Ui::DockWidget *ui;
       gitCore *_core;
       QAction *_actionMenu;
+      
+      QAbstractItemModel *_tablemodel;
 
 };
 
