@@ -44,6 +44,8 @@ public:
     bool is_git_dir(QString path);
     void updateAllRepo();
 
+    QList<QRepo *> getRepoList();
+    
 signals:
   void newRepository(QString repo);
   

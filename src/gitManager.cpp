@@ -32,7 +32,20 @@ void gitManager::writeSettings()
     globalsettings::instance()->beginGroup("MainWindow");
     globalsettings::instance()->setValue("geometry", saveGeometry());
     globalsettings::instance()->setValue("windowState", saveState());
-    globalsettings::instance()->endGroup();	
+    globalsettings::instance()->endGroup();
+    
+    globalsettings::instance()->beginGroup("GitRepoPath");
+    globalsettings::instance()->beginWriteArray("Repository");
+    
+    QList<QRepo *> repolist = _gitCore->getRepoList();
+    for (int i = 0; i < repolist.count(); ++i) 
+    {
+     globalsettings::instance()->setArrayIndex(i);
+     globalsettings::instance()->setValue("Path", repolist.at(i)->getDirPath());
+    }
+    globalsettings::instance()->endArray();
+    globalsettings::instance()->endGroup();
+ 
 }
 
 void gitManager::readSettings()
@@ -41,6 +54,20 @@ void gitManager::readSettings()
     restoreGeometry(globalsettings::instance()->value("geometry").toByteArray());
     restoreState(globalsettings::instance()->value("windowState").toByteArray());
     globalsettings::instance()->endGroup();
+
+    globalsettings::instance()->beginGroup("GitRepoPath");
+    int size = globalsettings::instance()->beginReadArray("Repository");
+    
+    QList<QRepo *> repolist = _gitCore->getRepoList();
+    for (int i = 0; i < size; ++i) 
+    {
+      globalsettings::instance()->setArrayIndex(i);
+      _gitCore->addDirectory( globalsettings::instance()->value("Path").toString() );
+    }
+    globalsettings::instance()->endArray();
+    globalsettings::instance()->endGroup();
+    
+  
 }
 
 void gitManager::on_actionQuit_toggled(bool checked)
