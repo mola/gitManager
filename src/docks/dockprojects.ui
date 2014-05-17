@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DockWidget</class>
+ <widget class="QDockWidget" name="DockWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Projects</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QToolButton" name="toolBtn_AddDirectory">
+        <property name="toolTip">
+         <string>Add Directory</string>
+        </property>
+        <property name="text">
+         <string>Add Directory</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resource/resource.qrc">
+          <normaloff>:/list-add.png</normaloff>:/list-add.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolBtn_RemoveDirectory">
+        <property name="toolTip">
+         <string>Remove directory</string>
+        </property>
+        <property name="text">
+         <string>Remove directory</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resource/resource.qrc">
+          <normaloff>:/list-remove.png</normaloff>:/list-remove.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolBtn_UpdateAll">
+        <property name="toolTip">
+         <string>Update all repository</string>
+        </property>
+        <property name="text">
+         <string>Update all repository</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resource/resource.qrc">
+          <normaloff>:/folder-sync.png</normaloff>:/folder-sync.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../resource/resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
