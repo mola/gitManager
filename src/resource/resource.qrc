@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/">
+    <file>folder-new.png</file>
+    <file>folder-sync.png</file>
+    <file>list-add.png</file>
+    <file>list-remove.png</file>
+  </qresource>
+</RCC>
