@@ -1,0 +1,4 @@
+gitManager
+==========
+
+git manager gui
