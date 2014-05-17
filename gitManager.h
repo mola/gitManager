@@ -7,8 +7,11 @@ class gitManager : public QMainWindow
 {
 Q_OBJECT
 public:
-    gitManager();
+    gitManager(QWidget *parent = 0);
     virtual ~gitManager();
+
+private:
+      Ui::MainWindow *ui;    
 };
 
 #endif // gitManager_H

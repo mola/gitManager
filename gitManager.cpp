@@ -5,15 +5,11 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QAction>
 
-gitManager::gitManager()
+gitManager::gitManager(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-    QLabel* l = new QLabel( this );
-    l->setText( "Hello World!" );
-    setCentralWidget( l );
-    QAction* a = new QAction(this);
-    a->setText( "Quit" );
-    connect(a, SIGNAL(triggered()), SLOT(close()) );
-    menuBar()->addMenu( "File" )->addAction( a );
+ui->setupUi(this);
 }
 
 gitManager::~gitManager()

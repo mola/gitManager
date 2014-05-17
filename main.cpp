@@ -5,7 +5,7 @@
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    gitManager foo;
-    foo.show();
+    gitManager mainWindow;
+    mainWindow.show();
     return app.exec();
 }
