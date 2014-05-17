@@ -33,9 +33,14 @@ set(gitManager_UIS
     main.ui
     )
 
+set ( gitManager_RSCS
+	resource/resource.qrc
+	)
+	
 QT5_WRAP_UI (UIS ${gitManager_UIS}) 
+QT5_add_resources( RSCS ${gitManager_RSCS} )
 
-add_executable(gitManager ${gitManager_SRCS})
+add_executable(gitManager ${gitManager_SRCS} ${UIS} ${RSCS})
 qt5_use_modules(gitManager Gui Widgets PrintSupport )
 
 target_link_libraries(gitManager)
