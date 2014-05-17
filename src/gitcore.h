@@ -17,39 +17,32 @@
  *
  */
 
-#ifndef DOCKPROJECTS_H
-#define DOCKPROJECTS_H
+#ifndef GITCORE_H
+#define GITCORE_H
 
-#include <QtWidgets/QDockWidget>
-#include <QtGui/QFileDialog>
-#include <QtGui/QAction>
+#include <git2.h>
+#include <git2/merge.h>
+#include <git2/buffer.h>
+#include <git2/remote.h>
 
-#include "src/gitcore.h"
+#include <QtCore/qobject.h>
+#include <QList>
+#include <QDir>
 
-namespace Ui {
-class DockWidget;
-}
-
-class dockProjects : public QDockWidget
+class gitCore : public QObject
 {
     Q_OBJECT
-
 public:
-    dockProjects(QWidget *parent, gitCore *core);
-    ~dockProjects();
+    gitCore(QObject* parent = 0);
+    virtual ~gitCore();
     
-    QAction* getMenu();
-
-private slots:
-  void actionMenu_toggled(bool checked);
-  
-  void on_toolBtn_AddDirectory_clicked();
-  void on_toolBtn_UpdateAll_clicked();
+    void addDirectory(QString dir);
+    void removeDirectory(QString dir);
+    
+    bool is_git_dir(QString path);
+    void updateAllRepo();
 private:
-      Ui::DockWidget *ui;
-      gitCore *_core;
-      QAction *_actionMenu;
-
+    QList<git_repository *> _repoList;  
 };
 
-#endif // DOCKPROJECTS_H
+#endif // GITCORE_H

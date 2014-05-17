@@ -18,11 +18,12 @@
  */
 
 #include "dockprojects.h"
-
 #include "ui_dockprojects.h"
 
-dockProjects::dockProjects(QWidget *parent) :
-QDockWidget(parent), ui(new Ui::DockWidget)
+#include <QDebug>
+
+dockProjects::dockProjects(QWidget *parent, gitCore *core) :
+QDockWidget(parent), ui(new Ui::DockWidget), _core(core)
 {
   ui->setupUi(this);
   _actionMenu =  new QAction("Projects", parent);
@@ -49,5 +50,20 @@ void dockProjects::actionMenu_toggled(bool checked)
     hide();
 }
 
+void dockProjects::on_toolBtn_AddDirectory_clicked()
+{
+  QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                             QDir::homePath(),
+                                             QFileDialog::ShowDirsOnly
+                                             | QFileDialog::DontResolveSymlinks);
+  
+  _core->addDirectory(dir);
+}
+
+
+void dockProjects::on_toolBtn_UpdateAll_clicked()
+{
+  _core->updateAllRepo();
+}
 
 #include "docks/projects/dockprojects.moc"

@@ -1,7 +1,8 @@
 project(gitManager)
 
-set(gitManager_SRCS 
+set(gitManager_SRCS gitcore.cpp 
     gitManager.cpp
+    globalsettings.cpp
     main.cpp
     
     docks/dockprojects.cpp
@@ -21,7 +22,9 @@ QT5_add_resources( RSCS ${gitManager_RSCS} )
 add_executable(gitManager ${gitManager_SRCS} ${UIS} ${RSCS})
 qt5_use_modules(gitManager Gui Widgets PrintSupport )
 
-target_link_libraries(gitManager)
+target_link_libraries(gitManager
+		      -lgit2
+		      )
 install(TARGETS gitManager RUNTIME DESTINATION bin)
 
 add_subdirectory(docks)
