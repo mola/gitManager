@@ -37,11 +37,12 @@ void gitManager::writeSettings()
     globalsettings::instance()->beginGroup("GitRepoPath");
     globalsettings::instance()->beginWriteArray("Repository");
     
-    QList<QRepo *> repolist = _gitCore->getRepoList();
-    for (int i = 0; i < repolist.count(); ++i) 
+    QStringList paths ( _gitCore->getModel()->getAllDirectores() );
+    
+    for (int i = 0; i < paths.count(); ++i) 
     {
      globalsettings::instance()->setArrayIndex(i);
-     globalsettings::instance()->setValue("Path", repolist.at(i)->getDirPath());
+     globalsettings::instance()->setValue("Path", paths[i]);
     }
     globalsettings::instance()->endArray();
     globalsettings::instance()->endGroup();
