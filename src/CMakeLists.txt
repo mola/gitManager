@@ -1,6 +1,6 @@
 project(gitManager)
 
-set(gitManager_SRCS qrepo.cpp gitcore.cpp 
+set(gitManager_SRCS  about/aboutdialog.cpp qrepo.cpp gitcore.cpp 
     gitManager.cpp
     globalsettings.cpp
     main.cpp
@@ -11,6 +11,7 @@ set(gitManager_SRCS qrepo.cpp gitcore.cpp
 set(gitManager_UIS 
     main.ui
     docks/dockprojects.ui
+    about/aboutdialog.ui
     )
 
 set ( gitManager_RSCS
@@ -28,3 +29,4 @@ target_link_libraries(gitManager
 install(TARGETS gitManager RUNTIME DESTINATION bin)
 
 add_subdirectory(docks)
+add_subdirectory(about)
