@@ -1,6 +1,11 @@
 project(gitManager)
 
-set(gitManager_SRCS qrepo.cpp gitcore.cpp 
+set(gitManager_SRCS 
+    repositorymodel.cpp 
+    repositorynode.cpp 
+    sessionmanager.cpp
+    qrepo.cpp 
+    gitcore.cpp 
     gitManager.cpp
     globalsettings.cpp
     main.cpp
@@ -26,5 +31,3 @@ target_link_libraries(gitManager
 		      -lgit2
 		      )
 install(TARGETS gitManager RUNTIME DESTINATION bin)
-
-add_subdirectory(docks)

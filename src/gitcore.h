@@ -30,6 +30,7 @@
 #include <QtCore/QProcess>
 
 #include "qrepo.h"
+#include "repositorymodel.h"
 
 class gitCore : public QObject
 {
@@ -46,11 +47,15 @@ public:
 
     QList<QRepo *> getRepoList();
     
+    RepositoryModel* getModel();
+    
 signals:
-  void newRepository(QString repo);
+  void newRepository(QRepo *repo);
   
 private:
-    QList<QRepo *> _repoList;  
+    QList<QRepo *> _repoList;
+    
+    RepositoryModel *_Model;
 };
 
 #endif // GITCORE_H

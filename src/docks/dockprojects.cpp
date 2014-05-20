@@ -30,12 +30,16 @@ QDockWidget(parent), ui(new Ui::DockWidget), _core(core)
   _actionMenu->setCheckable( true );
   _actionMenu->setChecked( true );
   
-  _tablemodel = new QStandardItemModel(0,1, this);
-  _tablemodel->setHorizontalHeaderItem(0, new QStandardItem(QString("Repository path")));
-  ui->tableView->setModel(_tablemodel);
+  _tablemodel = new QStandardItemModel(0,2, this);
+  
+  QStandardItem *col =  new QStandardItem(QString("Repository name") );
+  _tablemodel->setHorizontalHeaderItem(0,col);
+
+  _tablemodel->setHorizontalHeaderItem(1, new QStandardItem(QString("Repository path")));
+  ui->treeView->setModel(_core->getModel());
   
   connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
-  connect(_core,SIGNAL(newRepository(QString )), SLOT(newRepo(QString)) ); 
+  connect(_core,SIGNAL(newRepository(QRepo*)), SLOT(newRepo(QRepo*)) ); 
 }
 
 dockProjects::~dockProjects()
@@ -55,10 +59,13 @@ void dockProjects::actionMenu_toggled(bool checked)
     hide();
 }
 
-void dockProjects::newRepo(QString repo)
+void dockProjects::newRepo(QRepo *repo)
 {
-  QStandardItem *firstRow = new QStandardItem(QString(repo));
-  _tablemodel->setItem(0,0,firstRow);
+  qDebug() << repo->getName();
+  QStandardItem *Repo = new QStandardItem(QString(repo->getName() ));
+  QStandardItem *Path = new QStandardItem(QString(repo->getDirPath() ));
+  _tablemodel->setItem(0,0,Repo);
+  _tablemodel->setItem(0,1,Path);
 }
 
 void dockProjects::on_toolBtn_AddDirectory_clicked()
