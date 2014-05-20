@@ -46,7 +46,7 @@ private slots:
   void on_toolBtn_AddDirectory_clicked();
   void on_toolBtn_UpdateAll_clicked();
 
-  void newRepo(QString repo);
+  void newRepo(QRepo *repo);
 
 private:
       Ui::DockWidget *ui;

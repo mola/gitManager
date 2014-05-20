@@ -23,6 +23,9 @@ QRepo::QRepo(git_repository *e, QString path): QObject()
 {
   _dirPath = path;
   _gitrepo = e;
+  
+  QStringList na = path.split("/");
+  _name = na.last();
 }
 
 QRepo::~QRepo()
@@ -49,5 +52,11 @@ QString QRepo::getDirPath()
 {
   return _dirPath;
 }
+
+QString QRepo::getName()
+{
+  return _name;
+}
+
 
 #include "qrepo.moc"
