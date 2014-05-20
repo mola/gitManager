@@ -24,6 +24,9 @@ gitCore::gitCore(QObject* parent): QObject(parent)
 {
 
   git_threads_init();
+  _Model = new RepositoryModel();
+  
+
 }
 
 gitCore::~gitCore()
@@ -31,11 +34,14 @@ gitCore::~gitCore()
   git_threads_shutdown();
 }
 
+RepositoryModel* gitCore::getModel()
+{
+  return _Model;
+}
+
 void gitCore::addDirectory(QString dir)
 {
  is_git_dir(dir);
-
-  
 }
 
 void gitCore::removeDirectory(QString dir)
@@ -51,8 +57,11 @@ bool gitCore::is_git_dir(QString path)
   {
     case 0:
     {
-      _repoList.append( new QRepo (e, path) );
-      emit newRepository(path);
+//       RepositoryNode *r = new RepositoryNode (e, path);
+//       qDebug ()  <<  r->getDirPath() << r->getDisplayName ();
+      _Model->addRepository(e, path);
+//       _repoList.append( r );
+//       emit newRepository(r);
       return true;
     }
       break;

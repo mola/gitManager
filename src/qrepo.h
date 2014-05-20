@@ -20,6 +20,7 @@
 #ifndef QREPO_H
 #define QREPO_H
 
+#include <QtCore>
 #include <QtCore/qobject.h>
 #include <git2.h>
 
@@ -36,10 +37,12 @@ public:
     void setDirPath(QString path);
     QString getDirPath();
     
+    QString getName();
     
 private:
   git_repository *_gitrepo;
   QString	  _dirPath;
+  QString	  _name;
 };
 
 #endif // QREPO_H
