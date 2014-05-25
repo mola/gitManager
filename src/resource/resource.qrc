@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>gitmanager.png</file>
     <file>folder-new.png</file>
     <file>folder-sync.png</file>
     <file>list-add.png</file>

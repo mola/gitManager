@@ -1,6 +1,6 @@
 project(gitManager)
 
-set(gitManager_SRCS 
+set(gitManager_SRCS   
     repositorymodel.cpp 
     repositorynode.cpp 
     sessionmanager.cpp
@@ -11,11 +11,15 @@ set(gitManager_SRCS
     main.cpp
     
     docks/dockprojects.cpp
+    docks/dockstatus.cpp
+    docks/dockconsole.cpp
     )
 
 set(gitManager_UIS 
     main.ui
     docks/dockprojects.ui
+    docks/dockstatus.ui
+    docks/dockconsole.ui
     )
 
 set ( gitManager_RSCS

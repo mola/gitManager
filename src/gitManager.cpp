@@ -19,6 +19,14 @@ gitManager::gitManager(QWidget *parent) :
     addDockWidget(Qt::LeftDockWidgetArea , _dockProjects);
     ui->menuPanels->addAction (_dockProjects->getMenu()) ;
     
+    _dockConsole = new dockConsole ( this , _gitCore);
+	addDockWidget(Qt::BottomDockWidgetArea, _dockConsole);
+	ui->menuPanels->addAction (_dockConsole->getMenu()) ;
+
+    _dockStatus = new dockStatus ( this , _gitCore);
+	addDockWidget(Qt::RightDockWidgetArea, _dockStatus);
+	ui->menuPanels->addAction (_dockStatus->getMenu()) ;
+
     readSettings();
 }
 

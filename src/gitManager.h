@@ -5,6 +5,8 @@
 #include <QtCore/qglobal.h>
 
 #include "docks/dockprojects.h"
+#include "docks/dockconsole.h"
+#include "docks/dockstatus.h"
 #include "globalsettings.h"
 
 namespace Ui {
@@ -27,6 +29,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     dockProjects *_dockProjects;
+    dockConsole  *_dockConsole;
+    dockStatus   *_dockStatus;
     
     gitCore *_gitCore;
 };
