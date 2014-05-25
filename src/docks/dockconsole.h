@@ -37,11 +37,14 @@ public:
 
 	QAction* getMenu();
 
+private slots:
+		void newLog(QString );
 private:
     Ui::dockConsole* ui;
 	QAction *_actionMenu;
     
 	gitCore *_core;	
+
 };
 
 #endif // DOCKCONSOLE_H

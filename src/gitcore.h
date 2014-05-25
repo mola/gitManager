@@ -51,6 +51,7 @@ public:
     
 signals:
   void newRepository(QRepo *repo);
+  void newLog(QString);
   
 private:
     QList<QRepo *> _repoList;

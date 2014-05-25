@@ -57,16 +57,13 @@ bool gitCore::is_git_dir(QString path)
   {
     case 0:
     {
-//       RepositoryNode *r = new RepositoryNode (e, path);
-//       qDebug ()  <<  r->getDirPath() << r->getDisplayName ();
       _Model->addRepository(e, path);
-//       _repoList.append( r );
-//       emit newRepository(r);
+	  emit newLog("New repository add : " + path);
       return true;
     }
       break;
     default:
-      qDebug() << "Not found git repository";
+	  emit newLog("Not found git repository in : " + path );
   }
 }
 

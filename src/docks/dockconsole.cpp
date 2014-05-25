@@ -26,7 +26,9 @@ QDockWidget(parent), ui(new Ui::dockConsole), _core(core)
     ui->setupUi(this);
   _actionMenu =  new QAction("Console", parent);
   _actionMenu->setCheckable( true );
-  _actionMenu->setChecked( true );	
+  _actionMenu->setChecked( true );
+  
+  connect(_core, SIGNAL(newLog(QString)),SLOT(newLog(QString)) );
 }
 
 dockConsole::~dockConsole()
@@ -37,4 +39,9 @@ dockConsole::~dockConsole()
 QAction* dockConsole::getMenu()
 {
 	return _actionMenu;
+}
+
+void dockConsole::newLog(QString t)
+{
+	ui->textBrowser->insertPlainText(t + "\n");
 }
