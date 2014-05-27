@@ -27,7 +27,7 @@ RepositoryNode::RepositoryNode(RepositoryNode *parentNode, QObject* parent): QOb
   _open = false;
   _parentItem = 0;
   _itemCoulmns.insert(0, _name);
-
+  _nodeType = RepositoryNode::RepoNodeType;
 }
 
 RepositoryNode::RepositoryNode(git_repository *e, QString dirpath, RepositoryNode *parentNode): QObject()
@@ -186,6 +186,16 @@ bool RepositoryNode::setData(int column, const QVariant& value)
 void RepositoryNode::setCoulmns(QVector< QVariant >& data)
 {
   _itemCoulmns = data;
+}
+
+void RepositoryNode::setNodeType(NodeType e)
+{
+	_nodeType = e;
+}
+
+RepositoryNode::NodeType RepositoryNode::getNodeType()
+{
+	return _nodeType;
 }
 
 #include "repositorynode.moc"

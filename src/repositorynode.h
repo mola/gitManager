@@ -23,11 +23,6 @@
 #include <QtCore>
 #include <git2.h>
 
-enum NodeType {
-    FileNodeType = 1,
-    FolderNodeType = 2
-};
-
 // class Node: public QObject
 // {
 //   Q_OBJECT
@@ -44,7 +39,13 @@ class RepositoryNode : public QObject
     Q_OBJECT
 
 public:
-    explicit RepositoryNode(RepositoryNode *parentNode =0,QObject* parent = 0);
+enum NodeType {
+	RootNodeType = 0,
+	RepoNodeType = 1,
+    FileNodeType = 2,
+    FolderNodeType = 3
+};
+	explicit RepositoryNode(RepositoryNode *parentNode =0,QObject* parent = 0);
     RepositoryNode(git_repository *e, QString dirpath, RepositoryNode *parentNode=0);
     ~RepositoryNode();
 
@@ -74,11 +75,14 @@ public:
     bool insertColumns(int position, int columns);
     bool removeColumns(int position, int columns);
     
+	void setNodeType (NodeType e);
+	NodeType getNodeType();
 private:
   RepositoryNode *_parentItem;
   git_repository *_gitrepo;
   QString	  _dirPath;
   QString	  _name;
+  RepositoryNode::NodeType 	  _nodeType;
   
   QList<RepositoryNode*> childItems;
   QVector<QVariant> _itemCoulmns;

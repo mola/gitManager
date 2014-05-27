@@ -61,13 +61,16 @@ public:
                      const QModelIndex &parent = QModelIndex());
     bool removeRows(int position, int rows,
                      const QModelIndex &parent = QModelIndex());
+	
+	RepositoryNode *getRootItem();
+	RepositoryNode* nodeFromIndex(const QModelIndex& index) const;
 
 private:
-  RepositoryNode* nodeFromIndex(const QModelIndex& index) const;
   
 private:
   RepositoryNode * rootItem;
   QModelIndex  _rootModel;
+  
 };
 
 #endif // REPOSITORYMODEL_H

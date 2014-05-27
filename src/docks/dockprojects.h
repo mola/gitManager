@@ -21,10 +21,12 @@
 #define DOCKPROJECTS_H
 
 #include <QtWidgets/QDockWidget>
+#include <QtGui>
 #include <QtGui/QFileDialog>
-#include <QtGui/QAction>
-#include <QtGui/QStandardItemModel>
+#include <QtGui/QMenu>
 #include "src/gitcore.h"
+#include "src/repositorymodel.h"
+#include "src/repositorynode.h"
 
 namespace Ui {
 class DockWidget;
@@ -41,6 +43,7 @@ public:
     QAction* getMenu();
 
 private slots:
+	void contextualMenu(const QPoint& point);
   void actionMenu_toggled(bool checked);
   
   void on_toolBtn_AddDirectory_clicked();
@@ -52,7 +55,8 @@ private:
       Ui::DockWidget *ui;
       gitCore *_core;
       QAction *_actionMenu;
-      
+      RepositoryModel *_model;
+	  
       QStandardItemModel *_tablemodel;
 
 };

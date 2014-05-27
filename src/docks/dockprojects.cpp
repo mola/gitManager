@@ -25,21 +25,25 @@
 dockProjects::dockProjects(QWidget *parent, gitCore *core) :
 QDockWidget(parent), ui(new Ui::DockWidget), _core(core)
 {
-  ui->setupUi(this);
-  _actionMenu =  new QAction("Projects", parent);
-  _actionMenu->setCheckable( true );
-  _actionMenu->setChecked( true );
-  
-  _tablemodel = new QStandardItemModel(0,2, this);
-  
-  QStandardItem *col =  new QStandardItem(QString("Repository name") );
-  _tablemodel->setHorizontalHeaderItem(0,col);
+    ui->setupUi(this);
+    _actionMenu =  new QAction("Projects", parent);
+    _actionMenu->setCheckable( true );
+    _actionMenu->setChecked( true );
 
-  _tablemodel->setHorizontalHeaderItem(1, new QStandardItem(QString("Repository path")));
-  ui->treeView->setModel(_core->getModel());
-  
-  connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
-  connect(_core,SIGNAL(newRepository(QRepo*)), SLOT(newRepo(QRepo*)) ); 
+	_model = _core->getModel();
+    _tablemodel = new QStandardItemModel(0,2, this);
+
+    QStandardItem *col =  new QStandardItem(QString("Repository name") );
+    _tablemodel->setHorizontalHeaderItem(0,col);
+
+    _tablemodel->setHorizontalHeaderItem(1, new QStandardItem(QString("Repository path")));
+    ui->treeView->setModel(_model);
+
+    ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->treeView,SIGNAL(customContextMenuRequested(const QPoint &)),this,SLOT(contextualMenu(const QPoint &)));
+
+    connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
+    connect(_core,SIGNAL(newRepository(QRepo*)), SLOT(newRepo(QRepo*)) );
 }
 
 dockProjects::~dockProjects()
@@ -50,6 +54,24 @@ QAction* dockProjects::getMenu()
 {
   return _actionMenu;
 }
+
+void dockProjects::contextualMenu(const QPoint& point)
+{
+ QModelIndex index = ui->treeView->currentIndex();
+ RepositoryNode *item = _model->nodeFromIndex(index);
+
+ if(item->getNodeType() == RepositoryNode::RepoNodeType)
+ {
+  QMenu *menu = new QMenu(ui->treeView);
+  QString fileName = _model->data(_model->index(index.row(), 0),0).toString();
+  if (!item->is_repository_open())
+  menu->addAction(QString("Open"), this, SLOT(test_slot()));
+  else
+  menu->addAction(QString("Close"), this, SLOT(test_slot()));
+  menu->exec(QCursor::pos());
+ }
+}
+
 
 void dockProjects::actionMenu_toggled(bool checked)
 {

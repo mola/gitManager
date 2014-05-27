@@ -36,6 +36,7 @@ RepositoryModel::RepositoryModel(QObject *parent) :
   headers << tr("Name");
   
   rootItem = new RepositoryNode();
+  rootItem->setNodeType( RepositoryNode::RootNodeType );
   
   QVector<QVariant> rootData;
   foreach (QString header, headers)
@@ -262,6 +263,11 @@ QStringList RepositoryModel::getAllDirectores()
 		res << rootItem->child(i)->getDirPath();
 	}
 	return res;
+}
+
+RepositoryNode* RepositoryModel::getRootItem()
+{
+	return rootItem;
 }
 
 #include "repositorymodel.moc"
