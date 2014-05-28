@@ -64,10 +64,21 @@ QVariant RepositoryModel::data(const QModelIndex& index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role != Qt::DisplayRole && role != Qt::EditRole)
+    if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::DecorationRole)
         return QVariant();
 
     RepositoryNode *item = nodeFromIndex(index);
+
+	switch (role)
+	{
+		case Qt::DecorationRole:
+		{
+			return item->getIcon();
+		}
+		break;
+	}
+
+
 
 //     qDebug() << item->data(index.column());
     return item->data(index.column());
@@ -155,7 +166,7 @@ Qt::ItemFlags RepositoryModel::flags(const QModelIndex& index) const
    if (!index.isValid())
          return 0;
 
-     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable ;
   
 }
 

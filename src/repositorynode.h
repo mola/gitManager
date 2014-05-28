@@ -21,6 +21,7 @@
 #define REPOSITORYNODE_H
 
 #include <QtCore>
+#include <QIcon>
 #include <git2.h>
 
 // class Node: public QObject
@@ -77,12 +78,17 @@ enum NodeType {
     
 	void setNodeType (NodeType e);
 	NodeType getNodeType();
+	
+	void setIcon(QIcon icon);
+	QIcon getIcon();
 private:
   RepositoryNode *_parentItem;
   git_repository *_gitrepo;
   QString	  _dirPath;
   QString	  _name;
   RepositoryNode::NodeType 	  _nodeType;
+  
+  QIcon _icon;
   
   QList<RepositoryNode*> childItems;
   QVector<QVariant> _itemCoulmns;

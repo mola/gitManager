@@ -50,6 +50,8 @@ private slots:
   void on_toolBtn_UpdateAll_clicked();
 
   void newRepo(QRepo *repo);
+  void menuOpenProject();
+  void menuCloseProject();
 
 private:
       Ui::DockWidget *ui;

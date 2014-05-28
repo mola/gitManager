@@ -28,6 +28,8 @@ RepositoryNode::RepositoryNode(RepositoryNode *parentNode, QObject* parent): QOb
   _parentItem = 0;
   _itemCoulmns.insert(0, _name);
   _nodeType = RepositoryNode::RepoNodeType;
+  QPixmap pixmap = QPixmap (":/document-open-folder.png");
+  _icon = QIcon(pixmap);  
 }
 
 RepositoryNode::RepositoryNode(git_repository *e, QString dirpath, RepositoryNode *parentNode): QObject()
@@ -72,11 +74,16 @@ git_repository* RepositoryNode::getGitRepository()
 
 void RepositoryNode::repositoryOpen()
 {
-
+	QPixmap pixmap = QPixmap (":/document-open.png");
+	_icon = QIcon(pixmap);
+	_open = true;
 }
 
 void RepositoryNode::repositoryClose()
 {
+	QPixmap pixmap = QPixmap (":/document-open-folder.png");
+	_icon = QIcon(pixmap);
+  _open = false;
 
 }
 
@@ -196,6 +203,16 @@ void RepositoryNode::setNodeType(NodeType e)
 RepositoryNode::NodeType RepositoryNode::getNodeType()
 {
 	return _nodeType;
+}
+
+void RepositoryNode::setIcon(QIcon icon)
+{
+	_icon = icon;
+}
+
+QIcon RepositoryNode::getIcon()
+{
+	return _icon;
 }
 
 #include "repositorynode.moc"
