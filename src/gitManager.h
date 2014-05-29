@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtCore/qglobal.h>
 
+#include "dialog/aboutdialog.h"
 #include "docks/dockprojects.h"
 #include "docks/dockconsole.h"
 #include "docks/dockstatus.h"
@@ -24,7 +25,8 @@ public:
     void readSettings();
     
 private slots:
-    void on_actionQuit_toggled(bool checked);
+    void on_actionAbout_triggered(bool checked);
+    void on_actionQuit_triggered(bool checked);
 
 private:
     Ui::MainWindow *ui;

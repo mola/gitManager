@@ -13,13 +13,18 @@ set(gitManager_SRCS
     docks/dockprojects.cpp
     docks/dockstatus.cpp
     docks/dockconsole.cpp
+    
+    dialog/aboutdialog.cpp
     )
 
 set(gitManager_UIS 
     main.ui
+    
     docks/dockprojects.ui
     docks/dockstatus.ui
     docks/dockconsole.ui
+    
+    dialog/aboutdialog.ui
     )
 
 set ( gitManager_RSCS

@@ -79,9 +79,14 @@ void gitManager::readSettings()
   
 }
 
-void gitManager::on_actionQuit_toggled(bool checked)
+void gitManager::on_actionAbout_triggered(bool checked)
 {
-  qDebug() << "Hello";
+	aboutDialog *aboutdialog = new aboutDialog(this);
+	int res = aboutdialog->exec();
+}
+
+void gitManager::on_actionQuit_triggered(bool checked)
+{
   QApplication::quit();
 }
 

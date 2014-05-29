@@ -20,7 +20,8 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
-#include <QtGui/qdialog.h>
+#include <QtWidgets/QDialog>
+#include <QtGui>
 
 namespace Ui
 {
@@ -31,7 +32,7 @@ class aboutDialog : public QDialog
 {
     Q_OBJECT
 public:
-    aboutDialog();
+    aboutDialog(QWidget *parent=0);
     ~aboutDialog();
 
 private:

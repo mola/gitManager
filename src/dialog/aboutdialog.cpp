@@ -20,10 +20,11 @@
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-aboutDialog::aboutDialog()
+aboutDialog::aboutDialog(QWidget *parent):QDialog(parent,0)
 {
     ui = new Ui::aboutDialog;
     ui->setupUi(this);
+// 	this->setWindowFlags(Qt::WindowStaysOnTopHint);
 }
 
 aboutDialog::~aboutDialog()
