@@ -27,6 +27,8 @@ public:
 private slots:
     void on_actionAbout_triggered(bool checked);
     void on_actionQuit_triggered(bool checked);
+	
+	void on_actionWellcome_page_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
