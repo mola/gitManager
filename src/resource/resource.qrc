@@ -4,5 +4,6 @@
     <file>folder-sync.png</file>
     <file>list-add.png</file>
     <file>list-remove.png</file>
+	<file>gitmanager.png</file>
   </qresource>
 </RCC>

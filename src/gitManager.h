@@ -23,11 +23,11 @@ public:
     
 private slots:
     void on_actionQuit_toggled(bool checked);
+	void on_actionAbout_triggered(bool checked = false);
 
 private:
     Ui::MainWindow *ui;
     dockProjects *_dockProjects;
-    
     gitCore *_gitCore;
 };
 

@@ -4,7 +4,7 @@ SET(CMAKE_INSTALL_PREFIX, "/usr")
 
 SET(CMAKE_AUTOMOC ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-
+SET(QT_USE_QTGUI TRUE)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Network REQUIRED)
@@ -22,6 +22,5 @@ include_directories (
 	)
 	
 add_definitions(${Qt5Widgets_DEFINITIONS})
-
 
 add_subdirectory(src)

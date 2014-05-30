@@ -15,7 +15,19 @@ set(gitManager_SRCS
     docks/dockprojects.cpp
     about/aboutdialog.cpp
     )
-
+    set( gitMa
+    )
+# set (gitManager_MOC
+# 	repositorymodel.h
+# 	repositorynode.h
+# 	sessionmanager.h
+# 	qrepo.h
+# 	gitcore.h
+# 	gitManager.h
+# 	globalsettings.h
+# 	docks/dockprojects.h
+# 	about/aboutdialog.h
+# 	)
 set(gitManager_UIS 
     main.ui
     docks/dockprojects.ui
@@ -26,6 +38,7 @@ set ( gitManager_RSCS
 	resource/resource.qrc
 	)
 QT5_WRAP_UI (UIS ${gitManager_UIS}) 
+# QT5_WRAP_CPP(gitManager_MOC ${gitManager_MOC_HEADERS})
 QT5_add_resources( RSCS ${gitManager_RSCS} )
 
 add_executable(gitManager ${gitManager_SRCS} ${UIS} ${RSCS})

@@ -1,6 +1,7 @@
 #include "gitManager.h"
 
 #include "ui_main.h"
+#include "about/aboutdialog.h"
 #include <QDebug>
 
 gitManager::gitManager(QWidget *parent) :
@@ -76,5 +77,13 @@ void gitManager::on_actionQuit_toggled(bool checked)
   qDebug() << "Hello";
   QApplication::quit();
 }
+
+void gitManager::on_actionAbout_triggered(bool checked)
+{
+	aboutDialog about;
+	about.exec();
+}
+
+
 
 #include "gitManager.moc"
