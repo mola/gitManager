@@ -280,5 +280,3 @@ RepositoryNode* RepositoryModel::getRootItem()
 {
 	return rootItem;
 }
-
-#include "repositorymodel.moc"

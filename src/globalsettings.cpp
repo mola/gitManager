@@ -50,5 +50,3 @@ bool globalsettings::exists()
 globalsettings::~globalsettings()
 {
 }
-
-#include "globalsettings.moc"

@@ -120,5 +120,3 @@ void gitManager::on_actionQuit_triggered(bool checked)
 {
   QApplication::quit();
 }
-
-#include "gitManager.moc"

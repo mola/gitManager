@@ -118,5 +118,3 @@ void dockProjects::on_toolBtn_UpdateAll_clicked()
 {
   _core->updateAllRepo();
 }
-
-#include "docks/projects/dockprojects.moc"

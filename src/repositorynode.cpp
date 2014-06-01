@@ -214,5 +214,3 @@ QIcon RepositoryNode::getIcon()
 {
 	return _icon;
 }
-
-#include "repositorynode.moc"

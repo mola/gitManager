@@ -58,5 +58,3 @@ QString QRepo::getName()
   return _name;
 }
 
-
-#include "qrepo.moc"

@@ -26,5 +26,3 @@ SessionManager::SessionManager()
 SessionManager::~SessionManager()
 {
 }
-
-#include "sessionmanager.moc"

@@ -188,5 +188,3 @@ QList< QRepo* > gitCore::getRepoList()
 {
   return _repoList;
 }
-
-#include "gitcore.moc"
