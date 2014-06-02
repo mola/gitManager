@@ -9,6 +9,7 @@ set(gitManager_SRCS
     gitManager.cpp
     globalsettings.cpp
     main.cpp
+    tabrepo.cpp
     
     docks/dockprojects.cpp
     docks/dockstatus.cpp

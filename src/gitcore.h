@@ -28,15 +28,27 @@
 #include <QtCore/QList>
 #include <QtCore/QDir>
 #include <QtCore/QProcess>
+#include <QTabWidget>
+
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListView>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 #include "qrepo.h"
 #include "repositorymodel.h"
+#include "tabrepo.h"
 
 class gitCore : public QObject
 {
     Q_OBJECT
 public:
-    gitCore(QObject* parent = 0);
+    gitCore(QTabWidget *tab, QObject* parent = 0);
     virtual ~gitCore();
     
     void addDirectory(QString dir);
@@ -49,6 +61,8 @@ public:
     
     RepositoryModel* getModel();
     
+	void addTab(RepositoryNode *node);
+	void removeTab(RepositoryNode *node);
 signals:
   void newRepository(QRepo *repo);
   void newLog(QString);
@@ -56,6 +70,7 @@ signals:
 private:
     QList<QRepo *> _repoList;
     
+	QTabWidget *_tabWidget;
     RepositoryModel *_Model;
 };
 

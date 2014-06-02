@@ -65,9 +65,9 @@ void dockProjects::contextualMenu(const QPoint& point)
   QMenu *menu = new QMenu(ui->treeView);
   QString fileName = _model->data(_model->index(index.row(), 0),0).toString();
   if (!item->is_repository_open())
-  menu->addAction(QString("Open"), this, SLOT(menuOpenProject()));
+	  menu->addAction(QString("Open"), this, SLOT(menuOpenProject()));
   else
-  menu->addAction(QString("Close"), this, SLOT(menuCloseProject()));
+	  menu->addAction(QString("Close"), this, SLOT(menuCloseProject()));
   menu->exec(QCursor::pos());
  }
 }
@@ -77,13 +77,20 @@ void dockProjects::menuOpenProject()
  QModelIndex index = ui->treeView->currentIndex();
  RepositoryNode *item = _model->nodeFromIndex(index);	
  item->repositoryOpen();
+
+ _core->addTab(item);
+ 
 }
 
 void dockProjects::menuCloseProject()
 {
  QModelIndex index = ui->treeView->currentIndex();
  RepositoryNode *item = _model->nodeFromIndex(index);
+ 
+ _core->removeTab(item); 
+ 
  item->repositoryClose();
+
 }
 
 void dockProjects::actionMenu_toggled(bool checked)

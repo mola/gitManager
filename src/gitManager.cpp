@@ -12,7 +12,7 @@ gitManager::gitManager(QWidget *parent) :
     globalsettings::create(this);
     
     // Initilize Core
-    _gitCore = new gitCore(this);
+    _gitCore = new gitCore(ui->tabWidget, this);
     
     // Initlize dock projects
     _dockProjects = new dockProjects( this , _gitCore);

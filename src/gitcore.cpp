@@ -20,13 +20,12 @@
 #include "gitcore.h"
 #include <QDebug>
 
-gitCore::gitCore(QObject* parent): QObject(parent)
+gitCore::gitCore(QTabWidget *tab, QObject* parent): QObject(parent), _tabWidget(tab)
 {
 
   git_threads_init();
   _Model = new RepositoryModel();
   
-
 }
 
 gitCore::~gitCore()
@@ -187,4 +186,68 @@ void gitCore::updateAllRepo()
 QList< QRepo* > gitCore::getRepoList()
 {
   return _repoList;
+}
+
+void gitCore::addTab(RepositoryNode *node)
+{
+
+	 tabRepo *_tab = new tabRepo(node, _tabWidget);
+
+	 int res = _tabWidget->addTab(_tab, node->getDisplayName());
+	 
+	 QWidget *currentWidget = _tabWidget->widget(res);
+	 
+	 QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label;
+    QLineEdit *lineEdit;
+    QSplitter *splitter;
+    QListView *listView;
+    QListView *listView_2;
+	
+	    verticalLayout = new QVBoxLayout(currentWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(-1, 0, -1, -1);
+        label = new QLabel(currentWidget);
+        label->setObjectName(QStringLiteral("label"));
+		label->setText("Search");
+
+        horizontalLayout->addWidget(label);
+
+        lineEdit = new QLineEdit(currentWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+
+        horizontalLayout->addWidget(lineEdit);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        splitter = new QSplitter(currentWidget);
+        splitter->setObjectName(QStringLiteral("splitter"));
+        splitter->setOrientation(Qt::Vertical);
+        listView = new QListView(splitter);
+        listView->setObjectName(QStringLiteral("listView"));
+        splitter->addWidget(listView);
+        listView_2 = new QListView(splitter);
+        listView_2->setObjectName(QStringLiteral("listView_2"));
+        splitter->addWidget(listView_2);
+
+        verticalLayout->addWidget(splitter);
+
+}
+
+void gitCore::removeTab(RepositoryNode* node)
+{
+	for (int i= 0; i<= _tabWidget->count();i++)
+	{
+		if ( ( (tabRepo *) _tabWidget->widget(i))->getRepo() == node  )
+		{
+			_tabWidget->removeTab(i);
+		}
+	}
 }

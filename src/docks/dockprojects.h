@@ -28,6 +28,8 @@
 #include "src/repositorymodel.h"
 #include "src/repositorynode.h"
 
+#include "src/tabrepo.h"
+
 namespace Ui {
 class DockWidget;
 }
