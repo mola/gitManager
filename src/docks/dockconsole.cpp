@@ -28,6 +28,7 @@ QDockWidget(parent), ui(new Ui::dockConsole), _core(core)
   _actionMenu->setCheckable( true );
   _actionMenu->setChecked( true );
   
+  connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );  
   connect(_core, SIGNAL(newLog(QString)),SLOT(newLog(QString)) );
 }
 
@@ -44,4 +45,12 @@ QAction* dockConsole::getMenu()
 void dockConsole::newLog(QString t)
 {
 	ui->textBrowser->insertPlainText(t + "\n");
+}
+
+void dockConsole::actionMenu_toggled(bool checked)
+{
+  if (checked)
+    show();
+  else
+    hide();
 }

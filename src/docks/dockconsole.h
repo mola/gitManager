@@ -39,6 +39,8 @@ public:
 
 private slots:
 		void newLog(QString );
+		void actionMenu_toggled(bool checked);
+		
 private:
     Ui::dockConsole* ui;
 	QAction *_actionMenu;

@@ -37,6 +37,9 @@ public:
 
 	QAction* getMenu();
 
+private slots:
+	  void actionMenu_toggled(bool checked);
+
 private:
     Ui::dockStatus* ui;
 	QAction *_actionMenu;

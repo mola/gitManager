@@ -28,6 +28,9 @@ QDockWidget(parent), ui(new Ui::dockStatus ), _core(core)
 	_actionMenu =  new QAction("Status", parent);
 	_actionMenu->setCheckable( true );
 	_actionMenu->setChecked( true );
+
+    connect(_actionMenu, SIGNAL(toggled(bool)),SLOT(actionMenu_toggled(bool)) );
+	
 }
 
 dockStatus::~dockStatus()
@@ -39,5 +42,13 @@ QAction* dockStatus::getMenu()
 {
   return _actionMenu;
 
+}
+
+void dockStatus::actionMenu_toggled(bool checked)
+{
+  if (checked)
+    show();
+  else
+    hide();
 }
 
